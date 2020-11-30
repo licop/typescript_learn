@@ -1,46 +1,37 @@
 // ts -> .d.ts 翻译文件 -> js
 import superagent from 'superagent';
-import cheerio from 'cheerio';
+import fs from 'fs';
+import Analyzer from './analyzer';
+import path from 'path';
 
-interface Info {
-    title: string;
-    count: number;
+interface AnalyzerType {
+    analyze: (html: string, filePath: string) => string;
 }
 
 class Crowller {
-    private secret = 'x3b174jsx';
-    private url = `http://www.dell-lee.com/typescript/demo.html?secret=${this.secret}`;
-    private rawHtml = '';
-    
-    constructor() {
-        this.getRawHtml()
-    }
+    private filePath = path.resolve(__dirname, '../data/course.json');
 
-    getJsonInfo(html: string) {
-        const $ = cheerio.load(html);
-        const items = $('.course-item');
-        const infos: Info[] = [];
-        items.map((index, item) => {
-            const descs = $(item).find('.course-desc');
-            const title = descs.eq(0).text();
-            const count = Number(descs.eq(1).text().split('：')[1]);
-            infos.push({
-                title,
-                count
-            })
-        })
-        const result = {
-            time: (new Date()).getTime(),
-            data: infos
-        }
-        console.log(result);
+    constructor(private url: string, private analyzer: AnalyzerType) {
+        this.initSpiderProcess()
     }
-
+    // 取数据
     async getRawHtml() {
         const result = await superagent.get(this.url);
-        this.getJsonInfo(result.text);
+        return result.text;
     }
+    // 写数据
+    writeFile(content: string) {
+        fs.writeFileSync(this.filePath, content);
+    }
+    
+    async initSpiderProcess() {
+        const html = await this.getRawHtml();
+        const fileContent = this.analyzer.analyze(html, this.filePath);
+        this.writeFile(fileContent)
+    }
+
 }
-
-const crowller = new Crowller();
-
+const secret = 'x3b174jsx';
+const url = `http://www.dell-lee.com/typescript/demo.html?secret=${secret}`;
+const analyzer = Analyzer.getInstance();
+const crowller = new Crowller(url, analyzer);
