@@ -1,5 +1,6 @@
 ## 学习资料
 
+- [typescript 官方文档](https://www.typescriptlang.org/docs/handbook/intro.html)
 - [typescript 入门教程](https://ts.xcatliu.com/basics/type-inference.html)
 - [深入理解 TypeScript](https://jkchao.github.io/typescript-book-chinese/)
 - [awesome-typescript](https://github.com/dzharii/awesome-typescript)

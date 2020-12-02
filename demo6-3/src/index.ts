@@ -2,9 +2,10 @@
 // 静态方法，target 对应的是类的构造函数
 
 function getNameDecorator(target: any, key: string, descriptor: PropertyDescriptor) {
-  console.log(target, key, descriptor.value());
+  console.log(target, key, descriptor.value);
   console.log(target.getName, 6)
   // descriptor.writable = true;
+  descriptor.
   descriptor.value = function() {
     return 'decorator';
   };
