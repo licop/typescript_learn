@@ -15,7 +15,6 @@ app.use(
 
 app.use(router);
 
-
 app.get('/', (req, res) => {
     res.send('hello world')
 })
@@ -23,4 +22,3 @@ app.get('/', (req, res) => {
 app.listen(7001, () => {
     console.log('server is running')
 })
-
