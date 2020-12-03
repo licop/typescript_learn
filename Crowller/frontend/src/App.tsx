@@ -1,26 +1,47 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Form, Input, Button, Checkbox } from 'antd';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import './login.css';
 
-function App() {
+const NormalLoginForm = () => {
+  const onFinish = (values: any) => {
+    console.log('Received values of form: ', values);
+  };
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className="login-page">
+      <Form
+        name="normal_login"
+        className="login-form"
+        initialValues={{
+          remember: true,
+        }}
+        onFinish={onFinish}
+      >
+        <Form.Item
+          name="password"
+          rules={[
+            {
+              required: true,
+              message: '请输入你的密码',
+            },
+          ]}
         >
-          Learn React
-        </a>
-      </header>
+          <Input
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            type="password"
+            placeholder="Password"
+          />
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            登录
+          </Button>
+        </Form.Item>
+      </Form>
     </div>
   );
-}
+};
 
-export default App;
+export default NormalLoginForm;
+
