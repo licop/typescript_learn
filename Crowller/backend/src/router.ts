@@ -16,37 +16,11 @@ const checkLogin = (req: any, res: any, next: any) => {
     }
 }
 
-router.get('/', (req, res) => {
-    const isLogin = req.session ? req.session.login : false;
-    if (isLogin) {
-      res.send(`
-        <html>
-          <body>
-            <a href='/getData'>爬取内容</a>
-            <a href='/showData'>展示内容</a>
-            <a href='/logout'>退出</a>
-          </body>
-        </html>
-      `);
-    } else {
-      res.send(`
-        <html>
-          <body>
-            <form method="post" action="/login">
-              <input type="password" name="password" />
-              <button>登陆</button>
-            </form>
-          </body>
-        </html>
-      `);
-    }
-});
-
 router.get('/api/logout', (req, res) => {
     if (req.session) {
       req.session.login = undefined;
     }
-    res.redirect('/');
+    res.json(getResponseData(true))
 });
 
 router.get('/api/isLogin', (req, res) => {
@@ -56,12 +30,12 @@ router.get('/api/isLogin', (req, res) => {
 });
   
 router.post('/api/login', (req, res) => {
-    const { password } = req.body;
+  const { password } = req.body;
   const isLogin = req.session ? req.session.login : false;
   if (isLogin) {
-    res.json(getResponseData(false, '已经登陆过'));
+    res.json(getResponseData(true));
   } else {
-    if (password === '123' && req.session) {
+    if (password === 'licop' && req.session) {
       req.session.login = true;
       res.json(getResponseData(true));
     } else {
