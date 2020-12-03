@@ -29,13 +29,18 @@ router.get('/', function (req, res) {
         res.send("\n        <html>\n          <body>\n            <form method=\"post\" action=\"/login\">\n              <input type=\"password\" name=\"password\" />\n              <button>\u767B\u9646</button>\n            </form>\n          </body>\n        </html>\n      ");
     }
 });
-router.get('/logout', function (req, res) {
+router.get('/api/logout', function (req, res) {
     if (req.session) {
         req.session.login = undefined;
     }
     res.redirect('/');
 });
-router.post('/login', function (req, res) {
+router.get('/api/isLogin', function (req, res) {
+    var password = req.body.password;
+    var isLogin = req.session ? req.session.login : false;
+    res.json(util_1.getResponseData(isLogin));
+});
+router.post('/api/login', function (req, res) {
     var password = req.body.password;
     var isLogin = req.session ? req.session.login : false;
     if (isLogin) {
@@ -51,14 +56,14 @@ router.post('/login', function (req, res) {
         }
     }
 });
-router.get('/getData', checkLogin, function (req, res) {
+router.get('/api/getData', checkLogin, function (req, res) {
     var secret = 'secretKey';
     var url = "http://www.dell-lee.com/typescript/demo.html?secret=" + secret;
     var analyzer = analyzer_1.default.getInstance();
     new crowller_1.default(url, analyzer);
     res.json(util_1.getResponseData(true));
 });
-router.get('/showData', checkLogin, function (req, res) {
+router.get('/api/showData', checkLogin, function (req, res) {
     try {
         var position = path_1.default.resolve(__dirname, '../data/course.json');
         var result = fs_1.default.readFileSync(position, 'utf8');

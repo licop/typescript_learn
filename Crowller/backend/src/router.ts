@@ -42,14 +42,20 @@ router.get('/', (req, res) => {
     }
 });
 
-router.get('/logout', (req, res) => {
+router.get('/api/logout', (req, res) => {
     if (req.session) {
       req.session.login = undefined;
     }
     res.redirect('/');
-  });
+});
+
+router.get('/api/isLogin', (req, res) => {
+  const { password } = req.body;
+  const isLogin = req.session ? req.session.login : false;
+  res.json(getResponseData(isLogin));
+});
   
-router.post('/login', (req, res) => {
+router.post('/api/login', (req, res) => {
     const { password } = req.body;
   const isLogin = req.session ? req.session.login : false;
   if (isLogin) {
@@ -64,7 +70,7 @@ router.post('/login', (req, res) => {
   }
 });
 
-router.get('/getData', checkLogin, (req, res) => {
+router.get('/api/getData', checkLogin, (req, res) => {
     const secret = 'secretKey';
    const url = `http://www.dell-lee.com/typescript/demo.html?secret=${secret}`;
    const analyzer = Analyzer.getInstance();
@@ -72,7 +78,7 @@ router.get('/getData', checkLogin, (req, res) => {
    res.json(getResponseData(true));
 });
 
-router.get('/showData', checkLogin, (req, res) => {
+router.get('/api/showData', checkLogin, (req, res) => {
     try {
         const position = path.resolve(__dirname, '../data/course.json');
         const result = fs.readFileSync(position, 'utf8');
