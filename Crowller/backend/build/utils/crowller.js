@@ -47,7 +47,7 @@ var Crowller = /** @class */ (function () {
     function Crowller(url, analyzer) {
         this.url = url;
         this.analyzer = analyzer;
-        this.filePath = path_1.default.resolve(__dirname, '../data/course.json');
+        this.filePath = path_1.default.resolve(__dirname, '../../data/course.json');
         this.initSpiderProcess();
     }
     // 取数据
@@ -77,6 +77,7 @@ var Crowller = /** @class */ (function () {
                     case 1:
                         html = _a.sent();
                         fileContent = this.analyzer.analyze(html, this.filePath);
+                        console.log(this.filePath, fileContent);
                         this.writeFile(fileContent);
                         return [2 /*return*/];
                 }

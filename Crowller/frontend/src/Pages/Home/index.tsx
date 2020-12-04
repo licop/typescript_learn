@@ -77,18 +77,6 @@ class Home extends Component {
     });
   };
   
-//   "1606643055196": [
-//     { "title": "Vue2.5开发去哪儿网App", "count": 26 },
-//     { "title": "React 16.4 开发简书项目", "count": 19 },
-//     { "title": "React服务器渲染原理解析与实践", "count": 45 },
-//     { "title": "手把手带你掌握新版Webpack4.0", "count": 18 }
-//   ],
-//   "1606643479246": [
-//     { "title": "Vue2.5开发去哪儿网App", "count": 38 },
-//     { "title": "React 16.4 开发简书项目", "count": 84 },
-//     { "title": "React服务器渲染原理解析与实践", "count": 33 },
-//     { "title": "手把手带你掌握新版Webpack4.0", "count": 61 }
-//   ]
   getOptions = () => {
     const { data } = this.state;
     const lineAdvanceData: LineAdvanceItem[] = []
@@ -102,7 +90,7 @@ class Home extends Component {
             })
         })
     }
-   
+    
     return lineAdvanceData
   }
 

@@ -8,8 +8,8 @@ interface AnalyzerType {
 }
 
 export default class Crowller {
-    private filePath = path.resolve(__dirname, '../data/course.json');
-
+    private filePath = path.resolve(__dirname, '../../data/course.json');
+    
     constructor(private url: string, private analyzer: AnalyzerType) {
         this.initSpiderProcess()
     }
@@ -26,6 +26,8 @@ export default class Crowller {
     async initSpiderProcess() {
         const html = await this.getRawHtml();
         const fileContent = this.analyzer.analyze(html, this.filePath);
+        console.log(this.filePath, fileContent)
+
         this.writeFile(fileContent)
     }
 
