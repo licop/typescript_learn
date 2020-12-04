@@ -5,7 +5,6 @@ import {Redirect} from 'react-router-dom';
 import qs from 'qs';
 import axios from 'axios';
 import './style.css';
-
 interface FormValue{
   password: string
 }
@@ -14,7 +13,7 @@ class LoginForm extends Component {
   state = {
     isLogin: false
   }
-
+  
   onFinish = (values: FormValue) => {
     axios
       .post(
@@ -69,7 +68,6 @@ class LoginForm extends Component {
       </div>
     )
   }
-  
 };
 
 export default LoginForm;
